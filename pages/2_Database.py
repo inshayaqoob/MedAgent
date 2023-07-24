@@ -56,9 +56,10 @@ with st.sidebar:
     client = MongoClient(mongo_uri)
     db = client[db_name]
     collection = db[collection_name]
-
+    myclient = MongoClient(mongo_uri)
     # Fetch data from the collection (assuming the data contains a field named 'text')
-    text = [item['id'] for item in collection.find({})]
+    text =  client.find()
+
 
 
 
