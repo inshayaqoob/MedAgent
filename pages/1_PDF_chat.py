@@ -100,7 +100,7 @@ try:
                                         input_variables=['context', 'question'])
 
         llm = OpenAI(
-            st.secrets['API_KEY'],
+            openai_api_key= st.secrets['API_KEY'],
             temperature=0.7,
             model_name=model)
 
