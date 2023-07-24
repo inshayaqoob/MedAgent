@@ -33,7 +33,8 @@ k = 4  # number of chunks to consider when generating answer
 #load_dotenv()
 OPENAI_API_KEY = st.secrets['API_KEY']
 openai.api_key = st.secrets["API_KEY"]
-
+if 'api_key' not in st.session_state:
+    st.session_state['api_key'] = st.secrets['API_KEY']
 
 st.header('Clinical Report Chat')
 #####################################################################################
