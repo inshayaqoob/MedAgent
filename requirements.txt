@@ -8,6 +8,8 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
+langchain
+faiss-cpu
 
 # tests/linter
 black
@@ -21,9 +23,15 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+openai
 
 # utilities
 six>=1.14
 joblib
 memoized-property
 termcolor
+dotenv
+streamlit
+pyperclip
+PyPDF2
+pymongo
