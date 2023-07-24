@@ -1,5 +1,6 @@
 ############################### importing relevant libraries #########################
 import streamlit as st
+from pyperclip import copy
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
@@ -12,6 +13,7 @@ from langchain.prompts import PromptTemplate
 prompt_template = """You are a personal medical Bot assistant for answering any questions about documents.
 Use medical technical language.
 You are given a question and a set of documents.
+divide the answer in the corresponding sections.
 If the user's question requires you to provide specific information from the documents, give your answer based only on the examples provided below.
 If you don't find the answer to the user's question with the examples provided to you below, answer that you didn't find the answer in the documentation and propose him to rephrase his query with more details.
 Use bullet points if appropriate.
@@ -32,6 +34,7 @@ st.header('Clinical Report Chat')
 #####################################################################################
 #################################### sidebar uploader ##############################
 with st.sidebar:
+    model = st.selectbox('OpenAI models', options=['gpt-3.5-turbo', 'text-curie-001'])
     # file upload
     pdf = st.file_uploader('Upload your pdf here', type='pdf')
 
@@ -91,7 +94,11 @@ try:
         docs = knowledge_base.similarity_search(user_question)
         prompt_template = PromptTemplate(template=prompt_template,
                                         input_variables=['context', 'question'])
-        llm = OpenAI(temperature=0.7)
+
+        llm = OpenAI(
+            temperature=0.7,
+            model_name=model)
+
         chain = load_qa_chain(llm, chain_type='stuff', prompt=prompt_template)
         response = chain.run(input_documents=docs, question=user_question)
 
@@ -104,5 +111,9 @@ try:
         with st.chat_message('assistant'):
             message_placeholder = st.empty()
             st.markdown(response)
+            if st.button("Copy Last Message"):
+                last_message = st.session_state.messages[-1]["content"]
+                copy(last_message)  # Use the copy function to copy the last message to the clipboard
+                st.info("Last message copied to clipboard!")
 except Exception as e:
     st.warning("A PDF file hasn't been uploaded correctly")
