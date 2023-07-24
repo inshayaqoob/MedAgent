@@ -126,4 +126,4 @@ try:
             st.markdown(response)
 
 except Exception as e:
-    st.write("A PDF file hasn't been uploaded correctly", e)
+    st.warning("A PDF file hasn't been uploaded correctly")
