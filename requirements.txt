@@ -1,5 +1,5 @@
 # packaging
-pip>=9
+pip
 setuptools>=26
 twine
 wheel>=0.29
