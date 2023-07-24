@@ -49,43 +49,45 @@ with st.sidebar:
 
     # Load environment variables
     #load_dotenv()
+    try:
+        # Replace the connection string and database name with your MongoDB details
+        mongo_uri = st.secrets('MONGO_URI')
+        db_name = st.secrets('MONGO_DB_NAME')
+        collection_name = st.secrets('MONGO_COLLECTION_NAME')
 
-    # Replace the connection string and database name with your MongoDB details
-    mongo_uri = st.secrets('MONGO_URI')
-    db_name = st.secrets('MONGO_DB_NAME')
-    collection_name = st.secrets('MONGO_COLLECTION_NAME')
-
-    # Connect to MongoDB
-    client = MongoClient(mongo_uri)
-    db = client[db_name]
-    collection = db[collection_name]
-    myclient = MongoClient(mongo_uri)
-    # Fetch data from the collection (assuming the data contains a field named 'text')
-    text =  client.find()
-
-
+        # Connect to MongoDB
+        client = MongoClient(mongo_uri)
+        db = client[db_name]
+        collection = db[collection_name]
+        myclient = MongoClient(mongo_uri)
+        # Fetch data from the collection (assuming the data contains a field named 'text')
+        text =  client.find()
 
 
-    st.write(text)
 
-    #split chunks
 
-    text_splitter = CharacterTextSplitter(separator="\n",
-                                            chunk_size=1000,
-                                            chunk_overlap=200,
-                                            length_function=len)
+        st.write(text)
 
-    #create the chunks
+        #split chunks
 
-    chunks = text_splitter.split_text(text)
+        text_splitter = CharacterTextSplitter(separator="\n",
+                                                chunk_size=1000,
+                                                chunk_overlap=200,
+                                                length_function=len)
 
-    #st.write(chunks)
+        #create the chunks
 
-    #creating embeddings
+        chunks = text_splitter.split_text(text)
 
-    embeddings = OpenAIEmbeddings()
+        #st.write(chunks)
 
-    knowledge_base = FAISS.from_texts(chunks, embeddings)
+        #creating embeddings
+
+        embeddings = OpenAIEmbeddings()
+
+        knowledge_base = FAISS.from_texts(chunks, embeddings)
+    except Exception as e:
+        st.write("Db functionality not working properly yet")
 
 ###################################################################################
 ############################### chat functionality ###########################################
