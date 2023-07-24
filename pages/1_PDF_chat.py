@@ -2,6 +2,7 @@
 import streamlit as st
 #from pyperclip import copy
 #from dotenv import load_dotenv
+from langchain.chat_models import ChatOpenAI
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -99,7 +100,7 @@ try:
         prompt_template = PromptTemplate(template=prompt_template,
                                         input_variables=['context', 'question'])
 
-        llm = OpenAI(
+        llm = ChatOpenAI(
             openai_api_key= st.secrets['API_KEY'],
             temperature=0.7,
             model_name=model)
