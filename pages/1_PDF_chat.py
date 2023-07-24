@@ -118,4 +118,4 @@ try:
             st.markdown(response)
 
 except Exception as e:
-    st.warning(e)
+    st.warning("A PDF file hasn't been uploaded correctly")
