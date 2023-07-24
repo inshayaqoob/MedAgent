@@ -111,9 +111,9 @@ try:
         with st.chat_message('assistant'):
             message_placeholder = st.empty()
             st.markdown(response)
-            if st.button("Copy Last Message"):
-                last_message = st.session_state.messages[-1]["content"]
-                copy(last_message)  # Use the copy function to copy the last message to the clipboard
-                st.info("Last message copied to clipboard!")
+            #if st.button("Copy Last Message"):
+                #last_message = st.session_state.messages[-1]["content"]
+                #copy(last_message)  # Use the copy function to copy the last message to the clipboard
+                #st.info("Last message copied to clipboard!")
 except Exception as e:
     st.warning("A PDF file hasn't been uploaded correctly")
