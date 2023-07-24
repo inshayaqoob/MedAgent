@@ -75,7 +75,7 @@ with st.sidebar:
 
         #creating embeddings
 
-        embeddings = OpenAIEmbeddings(openai_api_key=st.secrets['API_KEY'])
+        embeddings = OpenAIEmbeddings(openai_api_key=st.session_state['api_key'])
 
         knowledge_base = FAISS.from_texts(chunks, embeddings)
 
@@ -107,7 +107,7 @@ try:
                                         input_variables=['context', 'question'])
 
         llm = ChatOpenAI(
-            openai_api_key= st.secrets['API_KEY'],
+            openai_api_key= st.session_state['api_key'],
             temperature=0.7,
             model_name=model)
 
