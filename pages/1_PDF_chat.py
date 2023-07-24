@@ -1,7 +1,7 @@
 ############################### importing relevant libraries #########################
 import streamlit as st
 from pyperclip import copy
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -28,7 +28,8 @@ Finish by proposing your help for anything else.
 """
 k = 4  # number of chunks to consider when generating answer
 ################################## loading the .env variables #######################
-load_dotenv()
+#load_dotenv()
+OPENAI_API_KEY = st.secrets['API_KEY']
 st.set_page_config(page_title='PDF Uploader')
 st.header('Clinical Report Chat')
 #####################################################################################

@@ -1,8 +1,8 @@
 import streamlit as st
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
+#from dotenv import load_dotenv
+'!pip install --upgrade pip'
+#load_dotenv()
 st.set_page_config(page_title='MedAgent app')
 st.title("Let's set up the project")
 

@@ -1,13 +1,16 @@
+from ossaudiodev import openmixer
 import streamlit as st
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import MongoDBAtlasVectorSearch
 from langchain.document_loaders import TextLoader
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import os
 import getpass
 from pymongo import MongoClient
-
+from langchain.vectorstores import FAISS
+from langchain.prompts import PromptTemplate
+from langchain.chains.question_answering import load_qa_chain
 #####################################################################################
 st.title("Database browser")
 
@@ -32,7 +35,7 @@ Finish by proposing your help for anything else.
 """
 k = 4  # number of chunks to consider when generating answer
 ################################## loading the .env variables #######################
-load_dotenv()
+#load_dotenv()
 
 
 
@@ -45,12 +48,12 @@ with st.sidebar:
     # Connect to MongoDB and retrieve data from the collection
 
     # Load environment variables
-    load_dotenv()
+    #load_dotenv()
 
     # Replace the connection string and database name with your MongoDB details
-    mongo_uri = os.getenv('MONGO_URI')
-    db_name = os.getenv('MONGO_DB_NAME')
-    collection_name = os.getenv('MONGO_COLLECTION_NAME')
+    mongo_uri = st.secrets('MONGO_URI')
+    db_name = st.secrets('MONGO_DB_NAME')
+    collection_name = st.secrets('MONGO_COLLECTION_NAME')
 
     # Connect to MongoDB
     client = MongoClient(mongo_uri)
@@ -63,7 +66,7 @@ with st.sidebar:
 
 
 
-    #st.write(text)
+    st.write(text)
 
     #split chunks
 
@@ -111,7 +114,7 @@ try:
         prompt_template = PromptTemplate(
             template=prompt_template, input_variables=['context', 'question'])
 
-        llm = OpenAI(temperature=0.7, model_name=model)
+        llm = openmixer(temperature=0.7, model_name=model)
 
         chain = load_qa_chain(llm, chain_type='stuff', prompt=prompt_template)
         response = chain.run(input_documents=docs, question=user_question)
@@ -125,11 +128,6 @@ try:
         with st.chat_message('assistant'):
             message_placeholder = st.empty()
             st.markdown(response)
-            if st.button("Copy Last Message"):
-                last_message = st.session_state.messages[-1]["content"]
-                copy(
-                    last_message
-                )  # Use the copy function to copy the last message to the clipboard
-                st.info("Last message copied to clipboard!")
+
 except Exception as e:
     st.warning("A PDF file hasn't been uploaded correctly")
