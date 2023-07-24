@@ -30,7 +30,7 @@ k = 4  # number of chunks to consider when generating answer
 ################################## loading the .env variables #######################
 #load_dotenv()
 OPENAI_API_KEY = st.secrets['API_KEY']
-st.set_page_config(page_title='PDF Uploader')
+
 st.header('Clinical Report Chat')
 #####################################################################################
 #################################### sidebar uploader ##############################
