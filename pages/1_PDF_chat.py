@@ -97,6 +97,7 @@ try:
                                         input_variables=['context', 'question'])
 
         llm = OpenAI(
+            oepnai_api_key = OPENAI_API_KEY,
             temperature=0.7,
             model_name=model)
 
