@@ -10,6 +10,7 @@ pandas
 scikit-learn
 langchain
 faiss-cpu
+tiktoken
 
 # tests/linter
 black
