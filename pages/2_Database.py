@@ -87,7 +87,7 @@ with st.sidebar:
 
         knowledge_base = FAISS.from_texts(chunks, embeddings)
     except Exception as e:
-        st.write("Db functionality not working properly yet")
+        st.warning("Db functionality not working properly yet")
 
 ###################################################################################
 ############################### chat functionality ###########################################

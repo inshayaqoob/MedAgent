@@ -44,9 +44,10 @@ with st.sidebar:
     pdf = st.file_uploader('Upload your pdf here', type='pdf')
 
     #link to sample
-    st.write(
-        "[Link to the sample PDF](https://lab.mlaw.gov.sg/files/Sample-filled-in-MR.pdf)"
+    st.markdown(
+        "## [Link to the sample PDF](https://lab.mlaw.gov.sg/files/Sample-filled-in-MR.pdf)"
     )
+    st.markdown("##  Ask specific questions or ask for a report of the patient")
 
     # text extract
     if pdf is not None:
