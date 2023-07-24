@@ -68,7 +68,7 @@ with st.sidebar:
 
         #creating embeddings
 
-        embeddings = OpenAIEmbeddings(st.secrets['API_KEY'])
+        embeddings = OpenAIEmbeddings(openai_api_key=st.secrets['API_KEY'])
 
         knowledge_base = FAISS.from_texts(chunks, embeddings)
 
