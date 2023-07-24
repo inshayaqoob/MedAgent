@@ -33,4 +33,3 @@ termcolor
 streamlit
 PyPDF2
 pymongo
-dotenv
