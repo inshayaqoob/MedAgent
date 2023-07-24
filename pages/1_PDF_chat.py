@@ -9,6 +9,7 @@ from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
+import openai
 ################################## prompt template ##################################
 prompt_template = """You are a personal medical Bot assistant for answering any questions about documents.
 Use medical technical language.
@@ -30,6 +31,8 @@ k = 4  # number of chunks to consider when generating answer
 ################################## loading the .env variables #######################
 #load_dotenv()
 OPENAI_API_KEY = st.secrets['API_KEY']
+openai.api_key = st.secrets["API_KEY"]
+
 
 st.header('Clinical Report Chat')
 #####################################################################################
@@ -65,7 +68,7 @@ with st.sidebar:
 
         #creating embeddings
 
-        embeddings = OpenAIEmbeddings()
+        embeddings = OpenAIEmbeddings(st.secrets['API_KEY'])
 
         knowledge_base = FAISS.from_texts(chunks, embeddings)
 
@@ -97,7 +100,7 @@ try:
                                         input_variables=['context', 'question'])
 
         llm = OpenAI(
-            openai_api_key=st.secrets['API_KEY'],
+            st.secrets['API_KEY'],
             temperature=0.7,
             model_name=model)
 
