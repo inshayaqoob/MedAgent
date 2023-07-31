@@ -11,6 +11,7 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 import openai
+import MedAgent
 ################################## prompt template ##################################
 prompt_template = """You are a personal medical Bot assistant for answering any questions about documents.
 Use medical technical language.
@@ -25,13 +26,14 @@ DOCUMENTS:
 =========
 {context}
 =========
-Finish by proposing your help for anything else.
+Finish by proposing 5 questions to make based on the information provided.
 """
 k = 4  # number of chunks to consider when generating answer
 ################################## loading the .env variables #######################
 #load_dotenv()
-OPENAI_API_KEY = st.secrets['API_KEY']
-openai.api_key = st.secrets["API_KEY"]
+# OPENAI_API_KEY = st.secrets['API_KEY']
+# openai.api_key = st.secrets["API_KEY"]
+
 if 'api_key' not in st.session_state:
     st.session_state['api_key'] = st.secrets['API_KEY']
 

@@ -15,7 +15,13 @@ st.markdown("""
          """)
 st.subheader('Open AI API key')
 
-if 'api_key' not in st.session_state:
-    st.session_state['api_key'] = st.secrets['API_KEY']
 
-st.session_state['api_key'] = st.text_input('Write your api key here', type='password' )
+
+key = st.text_input('Write your api key here', type='password' )
+#st.session_state['api_key'] = key
+
+if st.button('Use key'):
+    if key == '':
+        st.session_state['api_key'] = st.secrets['API_KEY']
+    else:
+        st.session_state['api_key'] = key
