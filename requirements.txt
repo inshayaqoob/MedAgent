@@ -2,7 +2,7 @@
 pip
 setuptools>=26
 twine
-wheel>=0.29
+wheel
 
 # data science
 numpy
